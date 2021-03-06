@@ -23,11 +23,11 @@ module.exports.run = async (bot, message, args) => {
         message.delete()
     } catch (error) { console.log(error) }
 
-    ecto_rng = Math.random()
-    gold_rng = Math.random()
+    let ecto_rng = Math.random()
+    let gold_rng = Math.random()
 
-    ecto = ""
-    gold = ""
+    let ecto = ""
+    let gold = ""
     if (ecto_rng < 0.345) {
         ecto = '50 Globs of Ectoplasm'
     } else if (ecto_rng < 0.655) {
@@ -57,7 +57,7 @@ module.exports.run = async (bot, message, args) => {
     } else {
         gold = '20 Orbs of Crystallized Plasma'
     }
-    new_message = `You win ${ecto} and ${gold}.`
+    let new_message = `You win ${ecto} and ${gold}.`
     try {
         message_copy.channel.send(new_message)
     } catch (error) { console.log(error) }
