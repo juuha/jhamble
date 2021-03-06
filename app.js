@@ -1,6 +1,6 @@
 const Discord = require("discord.js")
-const Token = require("./token.json")
 const fs = require("fs")
+const config = require("./config.json")
 
 const bot = new Discord.Client({
     disableEveryone: true,
@@ -25,6 +25,7 @@ bot.on('error', err => console.log(err))
 
 bot.on("ready", async () => {
     console.log(`${bot.user.username} is up and ready to gamble!`)
+    bot.prefix = config.prefix
 })
 
 bot.on("message", async (message) => {
