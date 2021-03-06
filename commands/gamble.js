@@ -29,33 +29,33 @@ module.exports.run = async (bot, message, args) => {
     ecto = ""
     gold = ""
     if (ecto_rng < 0.345) {
-        ecto = 'ecto 50'
+        ecto = '50 Globs of Ectoplasm'
     } else if (ecto_rng < 0.655) {
-        ecto = 'exo 6'
+        ecto = '6 Massive Globs of Ectoplasm (exotic)'
     } else if (ecto_rng < 0.855) {
-        ecto = 'exo 8'
+        ecto = '8 Massive Globs of Ectoplasm (exotic)'
     } else if (ecto_rng < 0.955) {
-        ecto = 'exo 9'
+        ecto = '9 Massive Globs of Ectoplasm (exotic)'
     } else if (ecto_rng < 0.995) {
-        ecto = 'asc 1'
+        ecto = '1 Massive Globs of Ectoplasm (ascended)'
     } else {
-        ecto = 'asc 5'
+        ecto = '5 Massive Globs of Ectoplasm (ascended)'
     }
 
     if (gold_rng < 0.5765) {
-        gold = 'crystal 25'
+        gold = '25 Chunks of Crystallized Plasma'
     } else if (gold_rng < 0.8265) {
-        gold = 'crystal 150'
+        gold = '150 Chunks of Crystallized Plasma'
     } else if (gold_rng < 0.9265) {
-        gold = 'crystal 200'
+        gold = '200 Chunks of Crystallized Plasma'
     } else if (gold_rng < 0.9765) {
-        gold = 'crystal 250'
+        gold = '250 Chunks of Crystallized Plasma'
     } else if (gold_rng < 0.9965) {
-        gold = 'orb 5'
+        gold = '5 Orbs of Crystallized Plasma'
     } else if (gold_rng < 0.9995) {
-        gold = 'orb 10'
+        gold = '10 Orbs of Crystallized Plasma'
     } else {
-        gold = 'orb 20'
+        gold = '20 Orbs of Crystallized Plasma'
     }
     new_message = `You win ${ecto} and ${gold}.`
     try {
