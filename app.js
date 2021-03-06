@@ -24,7 +24,7 @@ fs.readdir("./commands/", (error, files) => {
 bot.on('error', err => console.log(err))
 
 bot.on("ready", async () => {
-    console.log(`${bot.user.username} is up and ready to gamble!`)
+    console.log(`The name's Jhamble, ready to gamble!`)
     bot.prefix = Config.prefix
 })
 
