@@ -17,12 +17,15 @@ ecto:
 goo: 0.07
 */
 
+const init_gambler = require('../functions/init_gambler.js')
 
 module.exports.run = async (bot, message, args) => {
     var message_copy = message
     try {
         message.delete()
     } catch (error) { console.log(error) }
+
+    init_gambler(bot, message_copy)
 
     let ecto_rng = Math.random()
     let gold_rng = Math.random()
