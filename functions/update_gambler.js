@@ -1,3 +1,5 @@
+const fs = require('fs')
+
 module.exports = async (bot, gambler) => {
     bot.gamblers = require('../gamblers.json')
     bot.gamblers[gambler.id] = gambler
