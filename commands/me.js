@@ -1,4 +1,5 @@
 const Discord = require("discord.js")
+const init_emojis = require("../functions/init_emojis.js")
 const init_gambler = require('../functions/init_gambler.js')
 
 module.exports.run = async (bot, message) => {
@@ -9,18 +10,21 @@ module.exports.run = async (bot, message) => {
 
     init_gambler(bot, message_copy)
 
-    let emoji = ":game_die:"
-    const ecto_emoji = bot.emojis.cache.find(emoji => emoji.name === 'ecto')
-    if (ecto_emoji) emoji = ecto_emoji
+    let emojis = await init_emojis(bot)
     
     gambler = bot.gamblers[message_copy.author.id]
+
+    let info = `Gold - ${gambler.gold} \nEctos - ${gambler.ecto}`
+
+    if (gambler.orbs > 0) {
+        info += `\nOrbs of Crystallized Plasma - ${gambler.orbs}`
+    }
     
-    let info = ''
 
 
     const gambler_id = message_copy.author.id
     const embed = new Discord.MessageEmbed()
-        .setTitle(`${emoji}  ${bot.gamblers[gambler_id].name} ${emoji}`)
+        .setTitle(`${emojis.ecto}  ${bot.gamblers[gambler_id].name} ${emojis.ecto}`)
         .setColor(0x9FE2BF)
         .setDescription(info)
     try {
