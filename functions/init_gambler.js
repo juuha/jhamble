@@ -6,16 +6,16 @@ module.exports = async (bot, message) => {
         bot.gamblers[message.author.id] = {
             id: message.author.id,
             name: message.author.username,
-            ecto: 1250,
+            ectos: 1250,
             gold: 500,
             goo: 0,
             gambles: 0,
             magic_find: 0,
             luck: 0,
-            orb: 0,
+            orbs: 0,
             mystic_nexus: false,
             mystic_frame: false,
-            mystic_forge_node: 0,
+            mystic_forge_node: false,
             mystic_forge_conduit: false,
             jhemonade: 0
         }
@@ -23,4 +23,5 @@ module.exports = async (bot, message) => {
             if (error) console.log(error)
         })
     }
+    return bot.gamblers[message.author.id]
 }
