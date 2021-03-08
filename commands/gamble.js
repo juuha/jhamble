@@ -17,8 +17,10 @@ ecto:
 goo: 0.07
 */
 
+const Discord = require("discord.js")
 const init_gambler = require('../functions/init_gambler.js')
 const update_gambler = require('../functions/update_gambler.js')
+const init_emojis = require("../functions/init_emojis.js")
 
 module.exports.run = async (bot, message, args) => {
     var message_copy = message
@@ -30,12 +32,14 @@ module.exports.run = async (bot, message, args) => {
 
     let new_message = ``
 
-    if (gambler.ectos < 250) {
-        new_message = `Not enough ectos. You need at least 250, you have ${gambler.ectos}.`
+    let emojis = await init_emojis(bot)
+
+    if (gambler.ecto < 250) {
+        new_message = `You need at least 250 ${emojis.ecto}, you have only ${gambler.ecto} ${emojis.ecto}.`
     }
 
     if (gambler.gold < 100) {
-        new_message += `\nNot enough gold. You need at least 100, you have ${gambler.gold}.`
+        new_message += `\nYou need at least 100 ${emojis.gold}, you have only ${gambler.gold} ${emojis.gold}.`
     }
 
     if (new_message) {
@@ -45,7 +49,7 @@ module.exports.run = async (bot, message, args) => {
         return
     }
 
-    gambler.ectos -= 250
+    gambler.ecto -= 250
     gambler.gold -= 100
 
     let ecto_rng = Math.random()
@@ -55,52 +59,56 @@ module.exports.run = async (bot, message, args) => {
     let gold = ""
     if (ecto_rng < 0.345) {
         gambler.ectos += 50
-        ecto = '50 Globs of Ectoplasm'
+        ecto = `50 ${emojis.ecto}`
     } else if (ecto_rng < 0.655) {
         gambler.ectos += 300
-        ecto = '6 Massive Globs of Ectoplasm (exotic)'
+        ecto = `6 ${emojis.glob} (300 ${emojis.ecto})`
     } else if (ecto_rng < 0.855) {
         gambler.ectos += 400
-        ecto = '8 Massive Globs of Ectoplasm (exotic)'
+        ecto = `8 ${emojis.glob} (400 ${emojis.ecto})`
     } else if (ecto_rng < 0.955) {
         gambler.ectos += 450
-        ecto = '9 Massive Globs of Ectoplasm (exotic)'
+        ecto = `9 ${emojis.glob} (450 ${emojis.ecto})`
     } else if (ecto_rng < 0.995) {
         gambler.ectos += 500
-        ecto = '1 Massive Globs of Ectoplasm (ascended)'
+        ecto = `1 ${emojis.asc_glob} (500 ${emojis.ecto})`
     } else {
         gambler.ectos += 2500
-        ecto = '5 Massive Globs of Ectoplasm (ascended)'
+        ecto = `5 ${emojis.asc_glob} (2500 ${emojis.ecto})`
     }
 
     if (gold_rng < 0.5765) {
         gambler.gold += 25
-        gold = '25 Chunks of Crystallized Plasma'
+        gold = `25 ${emojis.crystal} (25 ${emojis.gold})`
     } else if (gold_rng < 0.8265) {
         gambler.gold += 150
-        gold = '150 Chunks of Crystallized Plasma'
+        gold = `150 ${emojis.crystal} (150 ${emojis.gold})`
     } else if (gold_rng < 0.9265) {
         gambler.gold += 200
-        gold = '200 Chunks of Crystallized Plasma'
+        gold = `200 ${emojis.crystal} (200 ${emojis.gold})`
     } else if (gold_rng < 0.9765) {
         gambler.gold += 250
-        gold = '250 Chunks of Crystallized Plasma'
+        gold = `250 ${emojis.crystal} (250 ${emojis.gold})`
     } else if (gold_rng < 0.9965) {
         gambler.orbs += 5
-        gold = '5 Orbs of Crystallized Plasma'
+        gold = `5 ${emojis.orb}`
     } else if (gold_rng < 0.9995) {
         gambler.orbs += 10
-        gold = '10 Orbs of Crystallized Plasma'
+        gold = `10 ${emojis.orb}`
     } else {
         gambler.orbs += 20
-        gold = '20 Orbs of Crystallized Plasma'
+        gold = `20 ${emojis.orb}`
     }
 
     await update_gambler(bot, gambler)
 
-    new_message = `You win ${ecto} and ${gold}.`
+    const embed = new Discord.MessageEmbed()
+        .setTitle(`${message_copy.author.username} ectogamble results!`)
+        .setColor(0x00FFFF)
+        .setDescription(`${gold}\n${ecto}`)
+
     try {
-        message_copy.channel.send(new_message)
+        message_copy.channel.send(embed)
     } catch (error) { console.log(error) }
     
 }
