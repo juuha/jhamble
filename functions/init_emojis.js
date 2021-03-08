@@ -1,6 +1,6 @@
 const Discord = require('discord.js')
 
-module.exports = async (bot, message) => {
+module.exports = async (bot) => {
     let emojis = {}
 
     emojis.ecto = ":game_die:"
