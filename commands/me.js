@@ -16,7 +16,7 @@ module.exports.run = async (bot, message) => {
     gambler = bot.gamblers[message_copy.author.id]
     let info = `${emojis.gold}: ${gambler.gold}\n${emojis.ecto}: ${gambler.ecto}`
 
-    info += `\nMagic Find :four_leaf_clover:: ${gambler.luck} \n Luck :chart_with_upwards_trend:: ${gambler.luck}/${luck_tiers[gambler.luck]}` 
+    info += `\nLuck :four_leaf_clover:: ${gambler.luck} \n Exp :chart_with_upwards_trend:: ${gambler.luck}/${luck_tiers[gambler.luck]}` 
 
     if (gambler.orbs) {
         info += `\n${emojis.orb}: ${gambler.orbs}`
