@@ -14,20 +14,22 @@ module.exports.run = async (bot, message) => {
     let emojis = await init_emojis(bot)
     
     gambler = bot.gamblers[message_copy.author.id]
-    let info = `${emojis.gold}: ${gambler.gold}\n${emojis.ecto}: ${gambler.ecto}`
+    let info = `Gold ${emojis.gold}: ${gambler.gold}\nEctos ${emojis.ecto}: ${gambler.ecto}`
 
-    info += `\nLuck :four_leaf_clover:: ${gambler.luck} \n Exp :chart_with_upwards_trend:: ${gambler.luck}/${luck_tiers[gambler.luck]}` 
+    info += `\nMagic Find :four_leaf_clover:: ${gambler.luck} \n Luck :chart_with_upwards_trend:: ${gambler.luck}/${luck_tiers[gambler.luck]}` 
+
+    info += `\nTotal gambles: ${gambler.gambles}`
 
     if (gambler.orbs) {
-        info += `\n${emojis.orb}: ${gambler.orbs}`
+        info += `\nOrbs ${emojis.orb}: ${gambler.orbs}`
     }
 
     if (gambler.goo) {
-        info += `\n${emojis.goo}: ${gambler.goo}`
+        info += `\nGoo ${emojis.goo}: ${gambler.goo}`
     }
 
     if (gambler.jhemonade) {
-        info += `\n$:tropical_drink:: ${gambler.jhemonade}`
+        info += `\nJhemonade :tropical_drink:: ${gambler.jhemonade}`
     }
     
     if (gambler.mystic_nexus && !gambler.mystic_forge_conduit) {
@@ -49,7 +51,7 @@ module.exports.run = async (bot, message) => {
 
     const gambler_id = message_copy.author.id
     const embed = new Discord.MessageEmbed()
-        .setTitle(`${emojis.ecto}  ${bot.gamblers[gambler_id].name} ${emojis.ecto}`)
+        .setTitle(`${bot.gamblers[gambler_id].name} ${emojis.ecto}`)
         .setColor(0x9FE2BF)
         .setDescription(info)
     try {
