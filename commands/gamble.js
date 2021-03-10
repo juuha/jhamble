@@ -22,17 +22,21 @@ const init_gambler = require('../functions/init_gambler.js')
 const update_gambler = require('../functions/update_gambler.js')
 const init_emojis = require("../functions/init_emojis.js")
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (bot, message, args, inside_job = false) => {
+
+    let gambler = {}
     var message_copy = message
-    try {
-        message.delete()
-    } catch (error) { console.log(error) }
-
-    let gambler = await init_gambler(bot, message_copy)
-
-    let new_message = ``
+    if (inside_job) {
+        gambler = await init_gambler(bot, { "author": { "id": args.id, "name": args.name } })
+    } else {
+        try {
+            message.delete()
+        } catch (error) { console.log(error) }
+        gambler = await init_gambler(bot, message_copy)
+    }
 
     let emojis = await init_emojis(bot)
+    let new_message = ``
 
     if (gambler.ecto < 250) {
         new_message = `You need at least 250 ${emojis.ecto}, you have only ${gambler.ecto} ${emojis.ecto}.`
@@ -107,11 +111,16 @@ module.exports.run = async (bot, message, args) => {
         .setTitle(`${emojis.ecto} Ectogamble!`)
         .setColor(0x00FFFF)
         .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact with ${emojis.ecto} to gamble again!`)
+    if (inside_job) {
+        try {
+            message_copy.edit(embed)
+        } catch (error) { console.log(error) }
+    } else {
+        try {
+            message_copy.channel.send(embed)
+        } catch (error) { console.log(error) }
+    }
 
-    try {
-        message_copy.channel.send(embed)
-    } catch (error) { console.log(error) }
-    
 }
 
 module.exports.help = {

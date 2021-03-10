@@ -1,6 +1,7 @@
 const Discord = require("discord.js")
 const fs = require("fs")
 const Config = require("./config.json")
+const init_emojis = require("./functions/init_emojis")
 
 const bot = new Discord.Client({
     disableEveryone: true,
@@ -30,7 +31,16 @@ bot.on("ready", async () => {
 
 bot.on("message", async (message) => {
     if (message.partial) await message.fetch()
-    if (message.channel.type == "dm" || message.author.bot) return
+    if (message.channel.type == "dm") return
+    if (message.author === bot.user && message.embeds.length > 0) {
+        if (message.embeds[0].title.startsWith("<:ecto:") || message.embeds[0].title.startsWith(":game_die:")) {
+            const emojis = await init_emojis(bot)
+            try {
+                await message.react(emojis.ecto)
+            } catch (error) { console.log(error) }
+            return
+        }
+    }
 
     if (!message.content.startsWith(bot.prefix)) return
     let msgArray = message.content.split(" ")
@@ -40,8 +50,36 @@ bot.on("message", async (message) => {
     if (cmd_file) cmd_file.run(bot, message, args)
 })
 
-bot.on("messageReactionAdd", async () => {
-    console.log('reaction added');
+bot.on("messageReactionAdd", async (messageReaction, user) => {
+    if (messageReaction.message.partial) {
+        try {
+            await messageReaction.message.fetch()
+        } catch (error) { console.error(error) }
+        for (const [id, reaction] of messageReaction.message.reactions.cache) {
+            try {
+                await reaction.users.fetch()
+            } catch (error) { console.error(error) }
+        }
+    }
+    if (user === bot.user) return
+    const { message } = messageReaction
+    const emojis = await init_emojis(bot)
+    if (message.author === bot.user) {
+        if (message.embeds[0].title.startsWith("<:ecto:") || message.embeds[0].title.startsWith(":game_die:")) {
+            
+            if (messageReaction.emoji === emojis.ecto) {
+                let real_username = message.embeds[0].description.split("\n")[0]
+                real_username = real_username.substring(0, real_username.length - 10)
+                const reactionUserManager = messageReaction.users
+                try {
+                    await reactionUserManager.remove(user)
+                } catch (error) { console.log(error) }
+                if (user.username == real_username) {
+                    bot.commands.get('gamble').run(bot, message, user, true)
+                }
+            } 
+        }
+    }
 })
 
 bot.login(Config.token)
