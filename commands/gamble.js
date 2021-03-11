@@ -1,7 +1,7 @@
 /*
 gold:
-- crystal 25 - 0.5765
-- crystal 150 - 0.25 - 0.8265
+- crystal 25 - 0.5835
+- crystal 150 - 0.243 - 0.8265
 - crystal 200 - 0.1 - 0.9265
 - crystal 250 - 0.05 - 0.9765
 - orb 5 - 0.02 - 0.9965
@@ -59,9 +59,11 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
 
     let ecto_rng = Math.random()
     let gold_rng = Math.random()
+    console.log(`gold: ${gold_rng}, ecto: ${ecto_rng}`)
 
     let ecto = ""
     let gold = ""
+    
     if (ecto_rng < 0.345) {
         gambler.ecto += 50
         ecto = `50 ${emojis.ecto}`
@@ -82,7 +84,7 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
         ecto = `5 ${emojis.asc_glob}`
     }
 
-    if (gold_rng < 0.5765) {
+    if (gold_rng < 0.5835) {
         gambler.gold += 25
         gold = `25 ${emojis.crystal}`
     } else if (gold_rng < 0.8265) {
