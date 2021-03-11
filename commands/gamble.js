@@ -8,8 +8,8 @@ gold:
 - orb 10 - 0.003 - 0.9995
 - orb 20 - 0.0005 - 1
 ecto:
-- ecto 50 - 0.345
-- exotic 6 - 0.31 - 0.655
+- ecto 50 - 0.42
+- exotic 6 - 0.245 - 0.655
 - exotic 8 - 0.2 - 0.855
 - exotic 9 - 0.1 - 0.955
 - asc 1 - 0.04 - 0.995
@@ -59,12 +59,11 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
 
     let ecto_rng = Math.random()
     let gold_rng = Math.random()
-    console.log(`gold: ${gold_rng}, ecto: ${ecto_rng}`)
 
     let ecto = ""
     let gold = ""
     
-    if (ecto_rng < 0.345) {
+    if (ecto_rng < 0.42) {
         gambler.ecto += 50
         ecto = `50 ${emojis.ecto}`
     } else if (ecto_rng < 0.655) {
