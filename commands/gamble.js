@@ -24,26 +24,39 @@ const init_emojis = require("../functions/init_emojis.js")
 
 module.exports.run = async (bot, message, args, inside_job = false) => {
 
+    let count = 1
+    let gambles = ""
+    if (!isNaN(args[0])) {
+        if (args[0] > 0) {
+            count = args[0]
+            gambles = `\nGambled ${args[0]} times!`
+        }
+        if (args[0] > 25) {
+            count = 25
+            gambles = `\nMaximum rolls per gamble is 25. Gambled 25 times instead of ${args[0]}!`
+        }
+    }
+
     let gambler = {}
     var message_copy = message
     if (inside_job) {
-        gambler = await init_gambler(bot, { "author": { "id": args.id, "name": args.name } })
+        gambler = await init_gambler(bot, args[1])
     } else {
         try {
             message.delete()
         } catch (error) { console.log(error) }
-        gambler = await init_gambler(bot, message_copy)
+        gambler = await init_gambler(bot, message_copy.author)
     }
 
     let emojis = await init_emojis(bot)
     let new_message = ``
 
-    if (gambler.ecto < 250) {
-        new_message = `You need at least 250 ${emojis.ecto}, you have only ${gambler.ecto} ${emojis.ecto}.`
+    if (gambler.ecto < 250 * count) {
+        new_message = `You need at least ${250 * count} ${emojis.ecto}, you have only ${gambler.ecto} ${emojis.ecto}.`
     }
 
-    if (gambler.gold < 100) {
-        new_message += `\nYou need at least 100 ${emojis.gold}, you have only ${gambler.gold} ${emojis.gold}.`
+    if (gambler.gold < 100 * count) {
+        new_message += `\nYou need at least ${100 * count} ${emojis.gold}, you have only ${gambler.gold} ${emojis.gold}.`
     }
 
     if (new_message) {
@@ -53,65 +66,72 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
         return
     }
 
-    gambler.ecto -= 250
-    gambler.gold -= 100
-    gambler.gambles += 1
-
-    let ecto_rng = Math.random()
-    let gold_rng = Math.random()
+    gambler.ecto -= 250 * count
+    gambler.gold -= 100 * count
+    gambler.gambles += 1 * count
 
     let ecto = ""
     let gold = ""
-    
-    if (ecto_rng < 0.42) {
-        gambler.ecto += 50
-        ecto = `50 ${emojis.ecto}`
-    } else if (ecto_rng < 0.655) {
-        gambler.ecto += 300
-        ecto = `6 ${emojis.glob}`
-    } else if (ecto_rng < 0.855) {
-        gambler.ecto += 400
-        ecto = `8 ${emojis.glob}`
-    } else if (ecto_rng < 0.955) {
-        gambler.ecto += 450
-        ecto = `9 ${emojis.glob}`
-    } else if (ecto_rng < 0.995) {
-        gambler.ecto += 500
-        ecto = `1 ${emojis.asc_glob}`
-    } else {
-        gambler.ecto += 2500
-        ecto = `5 ${emojis.asc_glob}`
+
+    for (let loop = 0; loop < count; loop++) {
+        let ecto_rng = Math.random()
+        let gold_rng = Math.random()
+
+        if (ecto_rng < 0.42) {
+            gambler.ecto += 50
+            ecto += `50 ${emojis.ecto}`
+        } else if (ecto_rng < 0.655) {
+            gambler.ecto += 300
+            ecto += `6 ${emojis.glob}`
+        } else if (ecto_rng < 0.855) {
+            gambler.ecto += 400
+            ecto += `8 ${emojis.glob}`
+        } else if (ecto_rng < 0.955) {
+            gambler.ecto += 450
+            ecto += `9 ${emojis.glob}`
+        } else if (ecto_rng < 0.995) {
+            gambler.ecto += 500
+            ecto += `1 ${emojis.asc_glob}`
+        } else {
+            gambler.ecto += 2500
+            ecto += `5 ${emojis.asc_glob}`
+        }
+        ecto += ", "
+
+        if (gold_rng < 0.5835) {
+            gambler.gold += 25
+            gold += `25 ${emojis.crystal}`
+        } else if (gold_rng < 0.8265) {
+            gambler.gold += 150
+            gold += `150 ${emojis.crystal}`
+        } else if (gold_rng < 0.9265) {
+            gambler.gold += 200
+            gold += `200 ${emojis.crystal}`
+        } else if (gold_rng < 0.9765) {
+            gambler.gold += 250
+            gold += `250 ${emojis.crystal}`
+        } else if (gold_rng < 0.9965) {
+            gambler.orbs += 5
+            gold += `5 ${emojis.orb}`
+        } else if (gold_rng < 0.9995) {
+            gambler.orbs += 10
+            gold += `10 ${emojis.orb}`
+        } else {
+            gambler.orbs += 20
+            gold += `20 ${emojis.orb}`
+        }
+        gold += ", "
     }
 
-    if (gold_rng < 0.5835) {
-        gambler.gold += 25
-        gold = `25 ${emojis.crystal}`
-    } else if (gold_rng < 0.8265) {
-        gambler.gold += 150
-        gold = `150 ${emojis.crystal}`
-    } else if (gold_rng < 0.9265) {
-        gambler.gold += 200
-        gold = `200 ${emojis.crystal}`
-    } else if (gold_rng < 0.9765) {
-        gambler.gold += 250
-        gold = `250 ${emojis.crystal}`
-    } else if (gold_rng < 0.9965) {
-        gambler.orbs += 5
-        gold = `5 ${emojis.orb}`
-    } else if (gold_rng < 0.9995) {
-        gambler.orbs += 10
-        gold = `10 ${emojis.orb}`
-    } else {
-        gambler.orbs += 20
-        gold = `20 ${emojis.orb}`
-    }
+    ecto = ecto.substring(0, ecto.length - 2)
+    gold = gold.substring(0, gold.length - 2)
 
     await update_gambler(bot, gambler)
 
     const embed = new Discord.MessageEmbed()
         .setTitle(`${emojis.ecto} Ectogamble!`)
         .setColor(0x00FFFF)
-        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact with ${emojis.ecto} to gamble again!`)
+        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles}\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 25`)
     if (inside_job) {
         try {
             message_copy.edit(embed)

@@ -1,11 +1,11 @@
 const fs = require('fs')
 
-module.exports = async (bot, message) => {
+module.exports = async (bot, gambler) => {
     bot.gamblers = require('../gamblers.json')
-    if (!bot.gamblers[message.author.id]) {
-        bot.gamblers[message.author.id] = {
-            id: message.author.id,
-            name: message.author.username,
+    if (!bot.gamblers[gambler.id]) {
+        bot.gamblers[gambler.id] = {
+            id: gambler.id,
+            name: gambler.username,
             ectos: 1250,
             gold: 500,
             goo: 0,
@@ -23,5 +23,5 @@ module.exports = async (bot, message) => {
             if (error) console.log(error)
         })
     }
-    return bot.gamblers[message.author.id]
+    return bot.gamblers[gambler.id]
 }

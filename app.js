@@ -5,7 +5,7 @@ const init_emojis = require("./functions/init_emojis")
 
 const bot = new Discord.Client({
     disableEveryone: true,
-    partials: ['MESSAGE', 'REACTION'] 
+    partials: ['MESSAGE', 'REACTION']
 })
 
 bot.commands = new Discord.Collection()
@@ -37,6 +37,10 @@ bot.on("message", async (message) => {
             const emojis = await init_emojis(bot)
             try {
                 await message.react(emojis.ecto)
+                await message.react(emojis.glob)
+                await message.react(emojis.crystal)
+                await message.react(emojis.asc_glob)
+                await message.react(emojis.orb)
             } catch (error) { console.log(error) }
             return
         }
@@ -66,18 +70,29 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
     const emojis = await init_emojis(bot)
     if (message.author === bot.user) {
         if (message.embeds[0].title.startsWith("<:ecto:") || message.embeds[0].title.startsWith(":game_die:")) {
-            
+            let count = 1
             if (messageReaction.emoji === emojis.ecto) {
-                let real_username = message.embeds[0].description.split("\n")[0]
-                real_username = real_username.substring(0, real_username.length - 10)
-                const reactionUserManager = messageReaction.users
-                try {
-                    await reactionUserManager.remove(user)
-                } catch (error) { console.log(error) }
-                if (user.username == real_username) {
-                    bot.commands.get('gamble').run(bot, message, user, true)
-                }
-            } 
+                count = 1
+            } else if (messageReaction.emoji === emojis.glob) {
+                count = 2
+            } else if (messageReaction.emoji === emojis.crystal) {
+                count = 5
+            } else if (messageReaction.emoji === emojis.asc_glob) {
+                count = 10
+            } else if (messageReaction.emoji === emojis.orb) {
+                count = 25
+            } else {
+                return
+            }
+            let real_username = message.embeds[0].description.split("\n")[0]
+            real_username = real_username.substring(0, real_username.length - 10)
+            const reactionUserManager = messageReaction.users
+            try {
+                await reactionUserManager.remove(user)
+            } catch (error) { console.log(error) }
+            if (user.username == real_username) {
+                bot.commands.get('gamble').run(bot, message, [count, user], true)
+            }
         }
     }
 })
