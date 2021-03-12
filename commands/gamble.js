@@ -61,7 +61,8 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
 
     if (new_message) {
         try {
-            message_copy.channel.send(new_message)
+            const sent = await message_copy.channel.send(new_message)
+            await sent.delete({timeout: 10000})
         } catch (error) { console.log(error) }
         return
     }
