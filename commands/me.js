@@ -20,8 +20,8 @@ module.exports.run = async (bot, message) => {
 
     info += `\nTotal gambles: ${gambler.gambles}`
 
-    if (gambler.orbs) {
-        info += `\nOrbs ${emojis.orb}: ${gambler.orbs}`
+    if (gambler.orb) {
+        info += `\nOrbs ${emojis.orb}: ${gambler.orb}`
     }
 
     if (gambler.goo) {

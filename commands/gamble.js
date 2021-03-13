@@ -62,7 +62,7 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     if (new_message) {
         try {
             const sent = await message_copy.channel.send(new_message)
-            await sent.delete({timeout: 10000})
+            await sent.delete({ timeout: 10000 })
         } catch (error) { console.log(error) }
         return
     }
@@ -124,15 +124,15 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
             gold += `250 ${emojis.crystal}`
             gold_value += 250
         } else if (gold_rng < 0.9965) {
-            gambler.orbs += 5
+            gambler.orb += 5
             gold += `5 ${emojis.orb}`
             gold_value += 500
         } else if (gold_rng < 0.9995) {
-            gambler.orbs += 10
+            gambler.orb += 10
             gold += `10 ${emojis.orb}`
             gold_value += 1000
         } else {
-            gambler.orbs += 20
+            gambler.orb += 20
             gold += `20 ${emojis.orb}`
             gold_value += 2000
         }
@@ -157,7 +157,6 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
             message_copy.channel.send(embed)
         } catch (error) { console.log(error) }
     }
-
 }
 
 module.exports.help = {
