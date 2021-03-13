@@ -9,7 +9,7 @@ module.exports.run = async (bot, message) => {
         message.delete()
     } catch (error) { console.log(error) }
 
-    init_gambler(bot, message_copy)
+    await init_gambler(bot, message_copy.author)
 
     let emojis = await init_emojis(bot)
     
