@@ -21,16 +21,21 @@ module.exports.run = async (bot, message, args) => {
         if (amount <= 0) {
             error_message = "Amount can't be less than 1."
         } else {
-            items = ["ecto", "ectos", "orb", "orbs"]
-            if (!items.includes(what)) {
-                error_message = `${what} is not a sellable item!`
-            } else {
-                if (what == "orbs") { what = "orb" }
-                if (what == "ectos") { what = "ecto" }
-                if (gambler[what] < amount) {
-                    error_message = `You only have ${gambler[what]} ${emojis[what]}.`
+            if (what) {
+                items = ["ecto", "ectos", "orb", "orbs"]
+                if (!items.includes(what)) {
+                    error_message = `${what} is not a sellable item!`
+                } else {
+                    if (what == "orbs") { what = "orb" }
+                    if (what == "ectos") { what = "ecto" }
+                    if (gambler[what] < amount) {
+                        error_message = `You only have ${gambler[what]} ${emojis[what]}.`
+                    }
                 }
+            } else {
+                error_message = `Specify what you want to sell!`
             }
+
         }
     } else {
         error_message = `Usage: ${bot.prefix}sell <amount> <item>`
