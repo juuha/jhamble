@@ -16,7 +16,7 @@ module.exports.run = async (bot, message, args) => {
     let emojis = await init_emojis(bot)
 
     if (Number.isInteger(parseInt(args[0]))) {
-        amount = args[0]
+        amount = parseInt(args[0])
         what = args[1]
         if (amount <= 0) {
             error_message = "Amount can't be less than 1."
