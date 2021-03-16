@@ -1,7 +1,6 @@
 const Discord = require("discord.js")
 const init_emojis = require("../functions/init_emojis.js")
 const init_gambler = require('../functions/init_gambler.js')
-const luck_tiers = require("../luck_tiers.json")
 
 module.exports.run = async (bot, message) => {
     let message_copy = message
@@ -16,16 +15,10 @@ module.exports.run = async (bot, message) => {
     gambler = bot.gamblers[message_copy.author.id]
     let info = `Gold ${emojis.gold}: ${gambler.gold}\nEctos ${emojis.ecto}: ${gambler.ecto}`
 
-    info += `\nMagic Find :four_leaf_clover:: ${gambler.luck} \n Luck :chart_with_upwards_trend:: ${gambler.luck}/${luck_tiers[gambler.luck]}` 
-
     info += `\nTotal gambles: ${gambler.gambles}`
 
     if (gambler.orb) {
         info += `\nOrbs ${emojis.orb}: ${gambler.orb}`
-    }
-
-    if (gambler.goo) {
-        info += `\nGoo ${emojis.goo}: ${gambler.goo}`
     }
 
     if (gambler.jhemonade) {
