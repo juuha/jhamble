@@ -25,9 +25,9 @@ const init_emojis = require("../functions/init_emojis.js")
 module.exports.run = async (bot, message, args, inside_job = false) => {
 
     let count = 1
-    let gambles = ""
+    let gambles = "Gambled 1 time!"
     if (!isNaN(args[0])) {
-        if (args[0] > 0) {
+        if (args[0] > 1) {
             count = args[0]
             gambles = `\nGambled ${args[0]} times!`
         }
