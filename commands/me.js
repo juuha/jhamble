@@ -15,6 +15,15 @@ module.exports.run = async (bot, message) => {
     gambler = bot.gamblers[message_copy.author.id]
     let info = `Gold ${emojis.gold}: ${gambler.gold}\nEctos ${emojis.ecto}: ${gambler.ecto}`
 
+    let today = Math.floor(Date.now() / 86400000)
+    if (gambler.free < today) {
+        info += `\nFree gamble: Available now!`
+    } else {
+        let tomorrow = (today + 1) * 86400000
+        let time_remaining = msToTime(tomorrow - Date.now())
+        info += `\nFree gamble: Available in ${time_remaining}!`
+    }
+
     info += `\nTotal gambles: ${gambler.gambles}`
 
     if (gambler.orb) {
@@ -50,6 +59,27 @@ module.exports.run = async (bot, message) => {
     try {
         await message_copy.channel.send(embed)
     } catch (error) { console.log(error) }
+}
+
+function msToTime(duration) {
+    let minutes = Math.floor((duration / (1000 * 60)) % 60)
+    let hours = Math.floor((duration / (1000 * 60 * 60)) % 24);
+
+    let total = ""
+    if (hours) { 
+        if (hours == 1) {
+            total +=  "1  hour " 
+        } else {
+            total += hours + " hours " 
+        }
+    }
+    if (minutes == 1) {
+        total += "1 minute"
+    } else {
+        total += minutes + " minutes"
+    }
+
+    return total;
 }
 
 module.exports.help = {
