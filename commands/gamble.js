@@ -50,6 +50,14 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
 
     let emojis = await init_emojis(bot)
     let new_message = ``
+    let free_roll = false
+
+    let today = Math.floor(Date.now() / 86400000)
+    if (gambler.free < today) {
+        gambler.ecto += 250
+        gambler.gold += 100
+        free_roll = true
+    }
 
     if (gambler.ecto < 250 * count) {
         new_message = `You need at least ${250 * count} ${emojis.ecto}, you have only ${gambler.ecto} ${emojis.ecto}.`
@@ -60,6 +68,10 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     }
 
     if (new_message) {
+        if (free_roll) {
+            gambler.ecto -= 250
+            gambler.gold -= 100
+        }
         try {
             const sent = await message_copy.channel.send(new_message)
             await sent.delete({ timeout: 10000 })
@@ -70,6 +82,10 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     gambler.ecto -= 250 * count
     gambler.gold -= 100 * count
     gambler.gambles += 1 * count
+
+    if (free_roll) {
+        gambler.free = today
+    }
 
     let ecto = ""
     let gold = ""

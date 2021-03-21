@@ -8,6 +8,7 @@ module.exports = async (bot, gambler) => {
             name: gambler.username,
             ecto: 1250,
             gold: 500,
+            free: 18706,
             gambles: 0,
             orb: 0,
             mystic_nexus: false,
