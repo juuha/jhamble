@@ -11,10 +11,6 @@ module.exports = async (bot) => {
     const gold_emoji = bot.emojis.cache.find(emoji => emoji.name === 'gold')
     if (gold_emoji) emojis.gold = gold_emoji
 
-    emojis.goo = ":microbe:"
-    const goo_emoji = bot.emojis.cache.find(emoji => emoji.name === "goo")
-    if (goo_emoji) emojis.goo = goo_emoji
-
     emojis.orb = ":crystal_ball:"
     const orb_emoji = bot.emojis.cache.find(emoji => emoji.name === "orb")
     if (orb_emoji) emojis.orb = orb_emoji

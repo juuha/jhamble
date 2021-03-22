@@ -11,10 +11,6 @@ module.exports = async (bot, gambler) => {
             free: 18706,
             gambles: 0,
             orb: 0,
-            mystic_nexus: false,
-            mystic_frame: false,
-            mystic_forge_node: false,
-            mystic_forge_conduit: false,
             jhemonade: 0
         }
         fs.writeFile('./gamblers.json', JSON.stringify(bot.gamblers, null, 4), async (error) => {

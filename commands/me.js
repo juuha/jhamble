@@ -33,23 +33,6 @@ module.exports.run = async (bot, message) => {
     if (gambler.jhemonade) {
         info += `\nJhemonade :tropical_drink:: ${gambler.jhemonade}`
     }
-    
-    if (gambler.mystic_nexus && !gambler.mystic_forge_conduit) {
-        info += `\nMystic Nexus :dna:: Acquired!`
-    }
-
-    if (gambler.mystic_frame && !gambler.mystic_forge_conduit) {
-        info += `\nMystic Frame :film_frames:: Acquired!`
-    }
-
-    if (gambler.mystic_forge_node && !gambler.mystic_forge_conduit) {
-        info += `\nMystic Forge Node :roll_of_paper:: Acquired!`
-    }
-
-    if (gambler.mystic_forge_conduit) {
-        info += `\nMystic Forge Conduit :toilet:: Acquired!`
-    }
-
 
     const gambler_id = message_copy.author.id
     const embed = new Discord.MessageEmbed()

@@ -14,7 +14,6 @@ ecto:
 - exotic 9 - 0.1 - 0.955
 - asc 1 - 0.04 - 0.995
 - asc 5 - 0.005  - 1
-goo: 0.07
 */
 
 const Discord = require("discord.js")
