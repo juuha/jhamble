@@ -1,9 +1,9 @@
 const fs = require('fs')
 
 module.exports = async (bot, gambler) => {
-    bot.gamblers = require('../gamblers.json')
-    if (!bot.gamblers[gambler.id]) {
-        bot.gamblers[gambler.id] = {
+    let gamblers = require('../gamblers.json')
+    if (!gamblers[gambler.id]) {
+        gamblers[gambler.id] = {
             id: gambler.id,
             name: gambler.username,
             ecto: 1250,
@@ -13,9 +13,9 @@ module.exports = async (bot, gambler) => {
             orb: 0,
             jhemonade: 0
         }
-        fs.writeFile('./gamblers.json', JSON.stringify(bot.gamblers, null, 4), async (error) => {
+        fs.writeFile('./gamblers.json', JSON.stringify(gamblers, null, 4), async (error) => {
             if (error) console.log(error)
         })
     }
-    return bot.gamblers[gambler.id]
+    return gamblers[gambler.id]
 }

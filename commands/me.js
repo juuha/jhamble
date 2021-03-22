@@ -8,11 +8,10 @@ module.exports.run = async (bot, message) => {
         message.delete()
     } catch (error) { console.log(error) }
 
-    await init_gambler(bot, message_copy.author)
+    let gambler = await init_gambler(bot, message_copy.author)
 
     let emojis = await init_emojis(bot)
     
-    gambler = bot.gamblers[message_copy.author.id]
     let info = `Gold ${emojis.gold}: ${gambler.gold}\nEctos ${emojis.ecto}: ${gambler.ecto}`
 
     let today = Math.floor(Date.now() / 86400000)
@@ -36,7 +35,7 @@ module.exports.run = async (bot, message) => {
 
     const gambler_id = message_copy.author.id
     const embed = new Discord.MessageEmbed()
-        .setTitle(`${bot.gamblers[gambler_id].name} ${emojis.ecto}`)
+        .setTitle(`${gambler.name} ${emojis.ecto}`)
         .setColor(0x9FE2BF)
         .setDescription(info)
     try {
