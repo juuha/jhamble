@@ -157,7 +157,7 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     ecto = ecto.substring(0, ecto.length - 2)
     gold = gold.substring(0, gold.length - 2)
 
-    await update_gambler(bot, gambler)
+    await update_gambler(gambler)
 
     const embed = new Discord.MessageEmbed()
         .setTitle(`${emojis.ecto} Ectogamble!`)

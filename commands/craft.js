@@ -37,7 +37,7 @@ module.exports.run = async (bot, message, args) => {
     gambler.orb -= 50 * count
     gambler.jhemonade += 1 * count
 
-    await update_gambler(bot, gambler)
+    await update_gambler(gambler)
 
     try {
         const sent = await message_copy.channel.send(crafts)

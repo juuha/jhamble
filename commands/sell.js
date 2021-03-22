@@ -54,7 +54,7 @@ module.exports.run = async (bot, message, args) => {
     gambler[what] -= amount
     gambler.gold += amount * price[what]
 
-    await update_gambler(bot, gambler)
+    await update_gambler(gambler)
 
     try {
         const sent = await message_copy.channel.send(`${amount} ${emojis[what]} sold for ${amount * price[what]} ${emojis.gold}.`)
