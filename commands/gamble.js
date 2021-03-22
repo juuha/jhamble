@@ -175,5 +175,6 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
 }
 
 module.exports.help = {
-    name: "gamble"
+    name: "gamble",
+    short: "g"
 }
