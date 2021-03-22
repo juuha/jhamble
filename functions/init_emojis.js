@@ -27,5 +27,7 @@ module.exports = async (bot) => {
     const asc_glob_emoji = bot.emojis.cache.find(emoji => emoji.name === "asc_glob")
     if (asc_glob_emoji) emojis.asc_glob = asc_glob_emoji
 
+    emojis.jhemonade = ":tropical_drink:"
+
     return emojis
 }

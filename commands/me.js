@@ -31,7 +31,7 @@ module.exports.run = async (bot, message) => {
     }
 
     if (gambler.jhemonade) {
-        info += `\nJhemonade :tropical_drink:: ${gambler.jhemonade}`
+        info += `\nJhemonade ${emojis.jhemonade}: ${gambler.jhemonade}`
     }
 
     const gambler_id = message_copy.author.id
