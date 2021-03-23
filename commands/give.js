@@ -55,12 +55,16 @@ module.exports.run = async (bot, message, args) => {
                 given_item = "gold"
                 break
             }
+            case "jhemonade":
+            case "jhemonades":
+                given_item = "jhemonade"
+                break
             default: {
-                error_message += `\nYou can only give ectos, gold or orbs.`
+                error_message += `\nYou can only give ectos, gold, orbs or jhemonade.`
             }
         }
     } else {
-        error_message += `\nYou have to specify what you want to give! (ectos, orbs, gold)`
+        error_message += `\nYou have to specify what you want to give! (ectos, orbs, gold, jhemonade)`
     }
 
     if (gambler[given_item] < amount) {
