@@ -95,6 +95,16 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
         let ecto_rng = Math.random()
         let gold_rng = Math.random()
 
+        if (free_roll) {
+            let lucky_ecto = Math.random()
+            let lucky_gold = Math.random()
+
+            ecto_rng = (ecto_rng < lucky_ecto) ? lucky_ecto : ecto_rng
+            gold_rng = (gold_rng < lucky_gold) ? lucky_gold : gold_rng
+
+            free_roll = false
+        }
+
         if (ecto_rng < 0.42) {
             gambler.ecto += 50
             ecto += `50 ${emojis.ecto}`
