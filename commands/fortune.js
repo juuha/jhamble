@@ -31,7 +31,7 @@ module.exports.run = async (bot, message, args) => {
             fortune = "Everything seems normal!"
     }
     try {
-        const sent = message_copy.channel.send(fortune)
+        const sent = await message_copy.channel.send(fortune)
         await sent.delete({ timeout: 10000 })
     } catch (error) { console.log(error) }
 }
