@@ -107,6 +107,5 @@ function getUserFromMention(bot, mention) {
 }
 
 module.exports.help = {
-    name: "give",
-    short: "g"
+    name: "give"
 }
