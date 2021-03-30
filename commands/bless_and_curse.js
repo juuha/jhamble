@@ -4,13 +4,15 @@ module.exports.run = async (bot, message, args) => {
         message.delete()
     } catch (error) { console.log(error) }
 
+    let amount = parseInt(args[0]) ? parseInt(args[0]) : 1
+
     let prophecy = message_copy.content.slice(1)
     let new_message = ""
-    if (prophecy == "bless") {
-        bot.fortune = Math.min(20, bot.fortune + 1)
+    if (prophecy.startsWith("bless")) {
+        bot.fortune = Math.min(20, bot.fortune + amount)
         new_message = ":innocent::pray:"
     } else {
-        bot.fortune = Math.max(1, bot.fortune - 1)
+        bot.fortune = Math.max(1, bot.fortune - amount)
         new_message = ":smiling_imp::fire:"
     }
     try {
