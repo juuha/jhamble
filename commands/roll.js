@@ -9,7 +9,7 @@ module.exports.run = async (bot, message, args) => {
     if (range) {
         if (range > 0) {
             let rng = Math.floor(Math.random() * range) + 1
-            new_message = `${message_copy.author.username} rolled a ${rng}/${range}!`
+            new_message = `${message_copy.author.username} rolled ${rng}/${range}!`
         }
     } else {
         let rng = Math.min(20, Math.max(1, Math.floor(Math.random() * 20) + 1 + bot.fortune))
