@@ -27,6 +27,7 @@ bot.on('error', err => console.log(err))
 bot.on("ready", async () => {
     console.log(`The name's Jhamble, ready to gamble!`)
     bot.prefix = Config.prefix
+    bot.fortune = 0
 })
 
 bot.on("message", async (message) => {
