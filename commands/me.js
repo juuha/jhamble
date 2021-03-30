@@ -36,7 +36,7 @@ module.exports.run = async (bot, message) => {
     const gambler_id = message_copy.author.id
     const embed = new Discord.MessageEmbed()
         .setTitle(`${gambler.name} ${emojis.ecto}`)
-        .setColor(0x9FE2BF)
+        .setColor(0x00FFFF)
         .setDescription(info)
     try {
         await message_copy.channel.send(embed)

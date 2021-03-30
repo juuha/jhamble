@@ -167,11 +167,13 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     ecto = ecto.substring(0, ecto.length - 2)
     gold = gold.substring(0, gold.length - 2)
 
+    let color = gold_value + ecto_value * 0.4 >= 200 * count ? 0x9FE2BF : 0xff7f7f
+
     await update_gambler(gambler)
 
     const embed = new Discord.MessageEmbed()
         .setTitle(`${emojis.ecto} Ectogamble!`)
-        .setColor(0x00FFFF)
+        .setColor(color)
         .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles} Total value: ${gold_value}${emojis.gold} & ${ecto_value}${emojis.ecto}.\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 25`)
     if (inside_job) {
         try {

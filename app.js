@@ -34,7 +34,7 @@ bot.on("message", async (message) => {
     if (message.partial) await message.fetch()
     if (message.channel.type == "dm") return
     if (message.author === bot.user && message.embeds.length > 0) {
-        if (message.embeds[0].title.startsWith("<:ecto:") || message.embeds[0].title.startsWith(":game_die:")) {
+        if (message.embeds[0].color == 0x9FE2BF || message.embeds[0].color == 0xff7f7f) {
             const emojis = await init_emojis(bot)
             try {
                 await message.react(emojis.ecto)
@@ -70,7 +70,7 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
     const { message } = messageReaction
     const emojis = await init_emojis(bot)
     if (message.author === bot.user) {
-        if (message.embeds[0].title.startsWith("<:ecto:") || message.embeds[0].title.startsWith(":game_die:")) {
+        if (message.embeds[0].color == 0x9FE2BF || message.embeds[0].color == 0xff7f7f) {
             let count = 1
             if (messageReaction.emoji === emojis.ecto) {
                 count = 1
