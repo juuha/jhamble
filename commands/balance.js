@@ -12,8 +12,14 @@ module.exports.run = async (bot, message) => {
     let ecto = gambler.ecto
 
     let total = gambler.gold + gambler.ecto * 0.4
-    gambler.gold = total / 2
-    gambler.ecto = total / (2 * 0.4)
+    let uneven_ectos = total / (2 * 0.4)
+    let even = Math.floor(uneven_ectos)
+    let diff = uneven_ectos - even
+
+
+
+    gambler.gold = (total / 2) + (diff * 0.4)
+    gambler.ecto = even
 
     let delta_ecto = gambler.ecto - ecto
     let new_message = ""
