@@ -13,7 +13,7 @@ module.exports.run = async (bot, message) => {
 
     let total = gambler.gold + gambler.ecto * 0.4
     let uneven_ectos = total / (2 * 0.4)
-    let even = Math.floor(uneven_ectos)
+    let even = Math.ceil(uneven_ectos / 5) * 5
     let diff = uneven_ectos - even
 
 
