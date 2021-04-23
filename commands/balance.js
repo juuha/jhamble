@@ -24,6 +24,8 @@ module.exports.run = async (bot, message) => {
     let delta_ecto = gambler.ecto - ecto
     let new_message = ""
 
+    await update_gambler(gambler)
+
     if (delta_ecto < 0) {
         new_message = `Sold ${-1 * delta_ecto}${emojis.ecto} for ${-0.4 * delta_ecto}${emojis.gold}!`
     } else if (delta_ecto > 0) {
