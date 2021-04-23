@@ -42,6 +42,7 @@ bot.on("message", async (message) => {
                 await message.react(emojis.crystal)
                 await message.react(emojis.asc_glob)
                 await message.react(emojis.orb)
+                await message.react(emojis.balance)
             } catch (error) { console.log(error) }
             return
         }
@@ -72,6 +73,7 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
     if (message.author === bot.user) {
         if (message.embeds[0].color == 0x9FE2BF || message.embeds[0].color == 0xff7f7f) {
             let count = 1
+            let command = "gamble"
             if (messageReaction.emoji === emojis.ecto) {
                 count = 1
             } else if (messageReaction.emoji === emojis.glob) {
@@ -82,6 +84,10 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
                 count = 10
             } else if (messageReaction.emoji === emojis.orb) {
                 count = 25
+            } else if (messageReaction.emoji.name) {
+                if (messageReaction.emoji.name === emojis.balance) {
+                    command = "balance"
+                }
             } else {
                 return
             }
@@ -92,8 +98,17 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
                 await reactionUserManager.remove(user)
             } catch (error) { console.log(error) }
             if (user.username == real_username) {
-                bot.commands.get('gamble').run(bot, message, [count, user], true)
+                switch (command) {
+                    case "gamble":
+                        bot.commands.get('gamble').run(bot, message, [count, user], true)
+                        break
+                    case "balance":
+                        bot.commands.get('balance').run(bot, message, [user], true)
+                        break
+                }
             }
+
+
         }
     }
 })

@@ -1,13 +1,18 @@
 const init_emojis = require("../functions/init_emojis")
 const init_gambler = require("../functions/init_gambler")
+const update_gambler = require("../functions/update_gambler")
 
-module.exports.run = async (bot, message) => {
+module.exports.run = async (bot, message, args, inside_job) => {
     let message_copy = message
-    try {
-        message.delete()
-    } catch (error) { console.log(error) }
-
-    let gambler = await init_gambler(bot, message_copy.author)
+    let gambler = {}
+    if (inside_job) {
+        gambler = await init_gambler(bot, args[0])
+    } else {
+        try {
+            message.delete()
+        } catch (error) { console.log(error) }
+        gambler = await init_gambler(bot, message_copy.author)
+    }
     let emojis = await init_emojis(bot)
     let ecto = gambler.ecto
 
@@ -15,8 +20,6 @@ module.exports.run = async (bot, message) => {
     let uneven_ectos = total / (2 * 0.4)
     let even = Math.ceil(uneven_ectos / 5) * 5
     let diff = uneven_ectos - even
-
-
 
     gambler.gold = (total / 2) + (diff * 0.4)
     gambler.ecto = even
