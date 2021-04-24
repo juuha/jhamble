@@ -174,7 +174,7 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     const embed = new Discord.MessageEmbed()
         .setTitle(`${emojis.ecto} Ectogamble!`)
         .setColor(color)
-        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles} Total value: ${gold_value}${emojis.gold} & ${ecto_value}${emojis.ecto}.\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 25. React with ${emojis.balance} to balance your ${emojis.ecto} and ${emojis.gold}!`)
+        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles} Total value: ${gold_value}${emojis.gold} & ${ecto_value}${emojis.ecto}.\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 20. React with ${emojis.balance} to balance!`)
     if (inside_job) {
         try {
             message_copy.edit(embed)

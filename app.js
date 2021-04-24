@@ -83,7 +83,7 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
             } else if (messageReaction.emoji === emojis.asc_glob) {
                 count = 10
             } else if (messageReaction.emoji === emojis.orb) {
-                count = 25
+                count = 20
             } else if (messageReaction.emoji.name) {
                 if (messageReaction.emoji.name === emojis.balance) {
                     command = "balance"
