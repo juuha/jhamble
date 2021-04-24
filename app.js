@@ -107,8 +107,6 @@ bot.on("messageReactionAdd", async (messageReaction, user) => {
                         break
                 }
             }
-
-
         }
     }
 })
