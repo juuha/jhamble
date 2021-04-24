@@ -30,9 +30,9 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
             count = args[0]
             gambles = `\nGambled ${args[0]} times!`
         }
-        if (args[0] > 25) {
-            count = 25
-            gambles = `\nMaximum rolls per gamble is 25. Gambled 25 times instead of ${args[0]}!`
+        if (args[0] > 20) {
+            count = 20
+            gambles = `\nMaximum rolls per gamble is 20. Gambled 20 times instead of ${args[0]}!`
         }
     }
 
