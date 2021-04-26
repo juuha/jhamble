@@ -50,6 +50,8 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     let emojis = await init_emojis(bot)
     let error_message = ``
     let free_roll = false
+    let old_gold = gambler.gold
+    let old_ecto = gambler.ecto
 
     let today = Math.floor(Date.now() / 86400000)
     if (gambler.free < today) {
@@ -167,6 +169,11 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     ecto = ecto.substring(0, ecto.length - 2)
     gold = gold.substring(0, gold.length - 2)
 
+    let gold_delta = gambler.gold - old_gold 
+    let ecto_delta = gambler.ecto - old_ecto
+    let gold_difference = gold_delta >= 0 ? "(+" + gold_delta + ")" : "(" + gold_delta + ")"
+    let ecto_difference = ecto_delta >= 0 ? "(+" + ecto_delta + ")" : "(" + ecto_delta + ")"
+
     let color = gold_value + ecto_value * 0.4 >= 200 * count ? 0x9FE2BF : 0xff7f7f
 
     await update_gambler(gambler)
@@ -174,7 +181,7 @@ module.exports.run = async (bot, message, args, inside_job = false) => {
     const embed = new Discord.MessageEmbed()
         .setTitle(`${emojis.ecto} Ectogamble!`)
         .setColor(color)
-        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles} Total value: ${gold_value}${emojis.gold} & ${ecto_value}${emojis.ecto}.\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} & **${gambler.ecto}** ${emojis.ecto}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 20. React with ${emojis.balance} to balance!`)
+        .setDescription(`${gambler.name} receives:\n**${gold}** & **${ecto}**${gambles} Total value: ${gold_value}${emojis.gold} & ${ecto_value}${emojis.ecto}.\n\nCurrent balance: \n**${gambler.gold}** ${emojis.gold} ${gold_difference}\n **${gambler.ecto}** ${emojis.ecto} ${ecto_difference}\n\nReact to gamble again! ${emojis.ecto} = 1 gamble, ${emojis.glob} = 2, ${emojis.crystal} = 5, ${emojis.asc_glob} = 10, ${emojis.orb} = 20. React with ${emojis.balance} to balance!`)
     if (inside_job) {
         try {
             message_copy.edit(embed)
