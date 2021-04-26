@@ -30,9 +30,9 @@ module.exports.run = async (bot, message, args, inside_job) => {
     await update_gambler(gambler)
 
     if (delta_ecto < 0) {
-        new_message = `Sold ${-1 * delta_ecto}${emojis.ecto} for ${-0.4 * delta_ecto}${emojis.gold}!`
+        new_message = `Sold ${-1 * delta_ecto}${emojis.ecto} for ${-0.4 * delta_ecto}${emojis.gold}! You now have ${gambler.gold}${emojis.gold} and ${gambler.ecto}${emojis.ecto}.`
     } else if (delta_ecto > 0) {
-        new_message = `Bought ${delta_ecto}${emojis.ecto} for ${0.4 * delta_ecto}${emojis.gold}!`
+        new_message = `Bought ${delta_ecto}${emojis.ecto} for ${0.4 * delta_ecto}${emojis.gold}! You now have ${gambler.gold}${emojis.gold} and ${gambler.ecto}${emojis.ecto}.`
     } else {
         new_message = "Already perfectly balanced, as all things should be."
     }
