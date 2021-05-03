@@ -33,7 +33,7 @@ module.exports.run = async (bot, message, args) => {
         total_value += `${g.value}${emojis.gold}\n`
     }
 
-    if (rank > max + 1) {
+    if (rank > max) {
         names += `...\n${rank}.\u2800${gambler.name}`
         items += `\n${gambler.gold}${emojis.gold}\u2800${gambler.ecto}${emojis.ecto}\u2800${gambler.orb}${emojis.orb}`
         total_value += `\n${gambler.gold + gambler.ecto * 0.4 + gambler.orb * 100}${emojis.gold}`
