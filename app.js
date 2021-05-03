@@ -49,6 +49,7 @@ bot.on("message", async (message) => {
     }
 
     if (!message.content.startsWith(bot.prefix)) return
+    message.content = message.content.toLowerCase()
     let msgArray = message.content.split(" ")
     let cmd = msgArray[0]
     let args = msgArray.slice(1)
