@@ -18,7 +18,7 @@ There's also the concept of jhemonade, but it's just an extra incentive for user
 
 ## Setting it up
   
-1. Clone the repo
+1. Clone the repo.
 2. Replace the `<token>` in config.json with your private Discord bot token.
 3. If you wish, change the prefix in config.json.
 4. Install the dependencies with `npm install`.
