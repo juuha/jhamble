@@ -14,4 +14,12 @@ A new user gets 5 free rolls worth of gold and ectos and each day they get 1 fre
 - %sell <amount> <what> - You can sell ectos and orbs if you have too many of those and too little gold.
 - %give <@who> <amount> <what> - If your friend has too little of something, you can give them something. (ectos, orbs, gold)
 
-There's also the concent of jhemonade, but it's just an extra incentive for users in my original server. Therefore any mention of %crafting or jhemonade can be ignored if the bot is setup on other servers. In those cases, orbs should be sold for extra gold as they are otherwise just used for crafting jhemonade.
+There's also the concept of jhemonade, but it's just an extra incentive for users in my original server. Therefore any mention of %crafting or jhemonade can be ignored if the bot is setup on other servers. In those cases, orbs should be sold for extra gold as they are otherwise just used for crafting jhemonade.
+
+## Setting it up
+  
+1. Clone the repo
+2. Replace the `<token>` in config.json with your private Discord bot token.
+3. If you wish, change the prefix in config.json.
+4. Install the dependencies with `npm install`.
+5. Run the bot with `node app.js`.
